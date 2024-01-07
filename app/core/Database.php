@@ -4,45 +4,53 @@ trait Database
 {
     private function connect()
     {
-        $dsn = "mysql:host=" . DBHOST . ";dbname=" . DBNAME;
-        $pdo = new PDO($dsn, DBUSER, DBPASS);
-        return $pdo;
+        try {
+            $dsn = "mysql:host=" . DBHOST . ";dbname=" . DBNAME;
+            $pdo = new PDO($dsn, DBUSER, DBPASS);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $pdo;
+        } catch (PDOException $e) {
+            echo "Database connection error: " . $e->getMessage();
+        }
     }
 
     protected function query($sql, $data = [])
     {
-        $pdo = $this->connect();
-        $stmt = $pdo->prepare($sql);
+        try {
+            $pdo = $this->connect();
+            $stmt = $pdo->prepare($sql);
 
-        foreach ($data as $key => $value) {
-            $stmt->bindParam(':' . $key, $value);
-        }
-
-        $check = $stmt->execute($data);
-
-        if ($check) {
-            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-            if (is_array($result) && count($result)) {
-                return $result;
+            foreach ($data as $key => $value) {
+                $stmt->bindParam(':' . $key, $value);
             }
-        } else {
-            return false;
+
+            $stmt->execute($data);
+
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            echo "Query execution error: " . $e->getMessage();
+        } finally {
+            $pdo = null;
         }
     }
 
     protected function getRow($sql, $data = [])
     {
-        $pdo = $this->connect();
-        $stmt = $pdo->prepare($sql);
-        $check = $stmt->execute($data);
+        try {
+            $pdo = $this->connect();
+            $stmt = $pdo->prepare($sql);
 
-        if ($check) {
-            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-            if (is_array($result) && count($result)) {
-                return $result[0];
+            foreach ($data as $key => $value) {
+                $stmt->bindParam(':' . $key, $value);
             }
-        } else {
-            return false;
+
+            $stmt->execute($data);
+
+            return $stmt->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            echo "Query execution error: " . $e->getMessage();
+        } finally {
+            $pdo = null;
         }
     }
 }

@@ -62,15 +62,36 @@ class Model
         $this->query($sql, $data);
     }
 
-    public function update($id, $data)
+    public function update($id, $data, $id_column = "id")
     {
+        $data[$id_column] = $id;
+        $keys = array_keys($data);
+
+        $sql = "UPDATE $this->table SET ";
+
+        foreach ($keys as $key) {
+            $sql .= "$key = :$key, ";
+        }
+
+        $sql = rtrim($sql, ", ");
+
+        $sql .= " WHERE $id_column = :$id_column";
+
+
+        echo $sql;
+        show($data);
+
+        $query = $this->query($sql, $data);
+        if ($query)
+            return true;
+        return false;
     }
 
     public function delete($id, $id_column = 'id')
     {
         $data[$id_column] = $id;
         $sql = "DELETE FROM $this->table WHERE $id_column = :$id_column";
-        // echo $sql;
+
         $this->query($sql, $data);
     }
 }
