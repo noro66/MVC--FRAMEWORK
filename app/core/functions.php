@@ -1,6 +1,4 @@
 <?php
-
-
 function show($url)
 {
     echo '<pre>';

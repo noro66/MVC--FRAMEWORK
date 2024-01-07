@@ -1,6 +1,4 @@
 <?php
-
-
 class Home extends Controller
 {
     public function index()
@@ -8,7 +6,3 @@ class Home extends Controller
         echo 'hello from home controller ';
     }
 }
-
-$home = new Home;
-
-$home->index();

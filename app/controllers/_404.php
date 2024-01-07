@@ -1,6 +1,4 @@
 <?php
-
-
 class _404 extends Controller
 {
     public function index()
@@ -8,7 +6,3 @@ class _404 extends Controller
         echo 'hello from _404 controller ';
     }
 }
-
-$_404 = new _404;
-
-$_404->index();
