@@ -17,6 +17,8 @@ class Database
             if (is_array($result) && count($result)) {
                 return $result;
             }
+        } else {
+            return false;
         }
     }
 }
