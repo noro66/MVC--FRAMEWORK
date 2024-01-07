@@ -1,5 +1,5 @@
 <?php
-class Database
+trait Database
 {
     private function connect()
     {
@@ -7,7 +7,7 @@ class Database
         $pdo = new PDO($dsn, DBUSER, DBPASS);
         return $pdo;
     }
-    private function query($sql, $data = [])
+    protected function query($sql, $data = [])
     {
         $pdo = $this->connect();
         $stmt = $pdo->prepare($sql);
