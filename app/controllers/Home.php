@@ -6,9 +6,10 @@ class Home extends Controller
         echo 'hello from home controller ';
         echo '</br>';
         $model = new Model;
-        $arr['id'] = 3;
-        $result =  $model->where($arr, ['name' => 'moha']);
-        echo $result;
+        // $arr['users_id'] = 9;
+        $arr['users_email'] = 'ali123@gmail.com';
+        $result =  $model->where($arr);
+        show($result);
         $this->view('home');
     }
 }
