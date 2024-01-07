@@ -10,8 +10,8 @@ class Home extends Controller
         $arr['users_uid'] = 'mohamed45';
         $arr['users_pwd'] = 'password1342';
         $arr['users_email'] = 'mohamed1234@gmail.com';
-        // $result =  $model->insert($arr);
-        // show($result);
+        $result =  $model->delete('moha', 'users_uid');
+        show($result);
         $this->view('home');
     }
 }

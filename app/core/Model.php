@@ -68,5 +68,9 @@ class Model
 
     public function delete($id, $id_column = 'id')
     {
+        $data[$id_column] = $id;
+        $sql = "DELETE FROM $this->table WHERE $id_column = :$id_column";
+        // echo $sql;
+        $this->query($sql, $data);
     }
 }
