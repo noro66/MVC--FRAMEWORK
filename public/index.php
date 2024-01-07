@@ -8,5 +8,3 @@ $app = new App();
 
 
 $app->loadController();
-
-// loadController();
