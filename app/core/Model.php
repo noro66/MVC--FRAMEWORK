@@ -22,6 +22,12 @@ class Model
         $sql = trim($sql, " && ");
 
         $sql .= " limit $this->limit offset $this->offset";
+        $data = array_merge($data, $not);
+
+        foreach ($data as $key => $value) {
+            $this->stmt->bindParam(':' . $key, $value, PDO::PARAM_INT);
+        }
+
         echo $sql;
     }
 
