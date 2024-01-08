@@ -1,8 +1,9 @@
 <?php
-class _404 extends Controller
+class _404
 {
-    public function index()
+    use Controller;
+    public function index(...$arr)
     {
-        echo 'hello from _404 controller ';
+        $this->view('_404');
     }
 }

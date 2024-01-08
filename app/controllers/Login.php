@@ -1,11 +1,9 @@
 <?php
-class Login extends Controller
+class Login
 {
-    public function index()
+    use Controller;
+    public function index(...$arr)
     {
-        echo 'hello from Login controller ';
-        echo '</br>';
-
         $this->view('Login');
     }
 }
