@@ -1,12 +1,19 @@
 <?php
 
-class Model
+trait Model
 {
     use Database;
 
-    private $table = 'users';
-    private $limit = '5';
-    private $offset = '0';
+    protected $limit = '5';
+    protected $offset = '0';
+    protected $order_type = "DESC";
+    // protected $order_by = "id";
+
+    public function fitch_All()
+    {
+        $sql = "SELECT * FROM $this->table ORDER BY $this->order_by  $this->order_type";
+        return $this->query($sql);
+    }
 
     public function where($data, $not = [])
     {
@@ -23,7 +30,7 @@ class Model
         }
         $sql = rtrim($sql, " AND ");
 
-        $sql .= " LIMIT $this->limit OFFSET $this->offset";
+        $sql .= " ORDER BY $this->order_by $this->order_type LIMIT $this->limit OFFSET $this->offset";
         $data = array_merge($data, $not);
 
         return $this->query($sql, $data);
@@ -54,6 +61,13 @@ class Model
 
     public function insert($data)
     {
+        if (!empty($this->columns)) {
+            foreach ($data as $key => $value) {
+                if (!in_array($key, $this->columns)) {
+                    unset($data[$key]);
+                }
+            }
+        }
         $keys = array_keys($data);
         $strk = implode(', ', $keys);
         $strv = implode(', :', $keys);
@@ -64,6 +78,13 @@ class Model
 
     public function update($id, $data, $id_column = "id")
     {
+        if (!empty($this->columns)) {
+            foreach ($data as $key => $value) {
+                if (!in_array($key, $this->columns)) {
+                    unset($data[$key]);
+                }
+            }
+        }
         $data[$id_column] = $id;
         $keys = array_keys($data);
 

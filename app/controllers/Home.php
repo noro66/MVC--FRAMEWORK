@@ -1,16 +1,17 @@
 <?php
 class Home extends Controller
 {
-    public function index()
+    public function index($a = '', $b = '', $c = '')
     {
-        echo 'hello from home controller ';
-        echo '</br>';
-        $model = new Model;
-        $arr['users_uid'] = 'johayna';
-        $arr['users_pwd'] = 'passwrdjohayna';
-        $arr['users_email'] = 'johayna234@gmail.com';
-        $result = $model->update(14, $arr, 'users_id');
-        show($result);
+        // echo 'hello from home controller ';
+        // echo '</br>';
+        // $user = new User;
+        // $arr['users_uid'] = 'last';
+        // $arr['users_pwd'] = 'lastPassword';
+        // $arr['users_email'] = 'lastemail@gmail.com';
+        // $result = $user->fitch_All();
+
+        show($a);
         $this->view('home');
     }
 }
