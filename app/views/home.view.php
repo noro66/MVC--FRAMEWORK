@@ -3,7 +3,7 @@
 $data = ['id' => 3, 'name' => 'moha', 'age' => 33];
 $keys = array_keys($data);
 
-foreach ($keys as $key) {
-    echo  $key;
-    echo '<br>';
-}
+// foreach ($keys as $key) {
+//     echo  $key;
+//     echo '<br>';
+// }

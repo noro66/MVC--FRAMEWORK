@@ -12,6 +12,14 @@ class Home extends Controller
         // $result = $user->fitch_All();
 
         show($a);
+        show($b);
+        show($c);
         $this->view('home');
+    }
+
+    public function test(...$a)
+    {
+        echo 'test function';
+        show($a);
     }
 }
